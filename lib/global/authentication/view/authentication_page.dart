@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gestao_restaurante/dados/entidades/local_user.dart';
+import 'package:gestao_restaurante/dependencies.dart';
+import 'package:gestao_restaurante/features/admin/gestao_produtos/view/gestao_produtos_page.dart';
+import 'package:gestao_restaurante/features/client/home_page/view/home_page_page.dart';
 import 'package:gestao_restaurante/global/authentication/bloc/bloc.dart';
 import 'package:gestao_restaurante/global/authentication/cubit/email_field_cubit.dart';
 import 'package:gestao_restaurante/global/authentication/cubit/nome_field_cubit.dart';
@@ -50,8 +54,41 @@ class AuthenticationView extends StatelessWidget {
   /// {@macro authentication_view}
   const AuthenticationView({super.key});
 
+  void onAuthSuccess(BuildContext context, dynamic state) {
+    if (getIt.isRegistered<LocalUser>()) {
+      getIt.unregister<LocalUser>();
+    }
+
+    // ignore: avoid_dynamic_calls
+    getIt.registerSingleton<LocalUser>(state.user as LocalUser);
+
+    // ignore: avoid_dynamic_calls
+    if (state.user.role == 'admin') {
+      Navigator.of(context).pushReplacement(GestaoProdutosPage.route());
+    } else {
+      Navigator.of(context).pushReplacement(HomePagePage.route());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const AuthenticationBody();
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      bloc: context.read<AuthenticationBloc>()..add(const VerifyCurrentUser()),
+      listener: (context, state) {
+        if (state is AuthenticationSuccess) {
+          onAuthSuccess(context, state);
+        }
+        if (state is AuthenticationSignInSuccess) {
+          onAuthSuccess(context, state);
+        }
+      },
+      builder: (context, state) {
+        if (state is AuthenticationLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return const AuthenticationBody();
+      },
+    );
   }
 }

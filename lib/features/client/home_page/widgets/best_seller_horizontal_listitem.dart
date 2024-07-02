@@ -36,7 +36,7 @@ class BestSellerHorizontalListItem extends StatelessWidget {
           padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.orange.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
           ),
           alignment: Alignment.bottomRight,
           child: Stack(
@@ -70,8 +70,8 @@ class BestSellerHorizontalListItem extends StatelessWidget {
                     ),
                     child: Text(
                       '${produto.preco} Kz',
-                      style: const TextStyle(
-                        color: Colors.orange,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
                         fontSize: 12,
                       ),
                     ),

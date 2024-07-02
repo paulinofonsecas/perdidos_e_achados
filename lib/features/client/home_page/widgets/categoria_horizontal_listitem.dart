@@ -26,9 +26,13 @@ class CategoriaHorizontalListItem extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: isActive ? Colors.white : Colors.deepOrange.withOpacity(0.1),
+          color: isActive
+              ? Colors.white
+              : Theme.of(context).colorScheme.primary.withOpacity(0.1),
           border: Border.all(
-            color: isActive ? Colors.orange : Colors.transparent,
+            color: isActive
+                ? Theme.of(context).colorScheme.primary
+                : Colors.transparent,
             width: 2,
           ),
         ),
@@ -46,7 +50,9 @@ class CategoriaHorizontalListItem extends StatelessWidget {
             Text(
               categoria.descricao,
               style: TextStyle(
-                color: isActive ? Colors.black : Colors.orange,
+                color: isActive
+                    ? Colors.black
+                    : Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),

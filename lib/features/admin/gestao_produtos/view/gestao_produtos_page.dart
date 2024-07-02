@@ -26,7 +26,15 @@ class GestaoProdutosPage extends StatelessWidget {
       create: (context) => GestaoProdutosBloc(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Gestão de Produtos'),
+          title: const Text('Gestão de Items'),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                // await populateProducts();
+              },
+              child: const Text('Popular'),
+            ),
+          ],
         ),
         drawer: const GestaoProdutosDrawer(),
         body: const GestaoProdutosView(),

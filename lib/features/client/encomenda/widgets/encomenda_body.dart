@@ -149,9 +149,9 @@ class _EncomendaForm extends StatelessWidget {
                 if (formKey.currentState!.validate()) {
                   context.read<EncomendaBloc>().add(
                         EncomendarEvent(
-                          'Cuito, Rua Silva porto',
+                          localicaoController.text,
                           produto,
-                          '925412030',
+                          numeroController.text,
                         ),
                       );
                 }

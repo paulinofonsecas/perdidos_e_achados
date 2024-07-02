@@ -39,13 +39,17 @@ class AuthenticationBloc
     VerifyCurrentUser event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(AuthenticationLoading());
+    try {
+      emit(AuthenticationLoading());
 
-    final user = await _verifyCurrentUser();
+      final user = await _verifyCurrentUser();
 
-    if (user != null) {
-      emit(AuthenticationSignInSuccess(user: user));
-    } else {
+      if (user != null) {
+        emit(AuthenticationSuccess(user: user));
+      } else {
+        emit(AuthenticationInitial());
+      }
+    } catch (e) {
       emit(AuthenticationInitial());
     }
   }
@@ -115,9 +119,11 @@ class AuthenticationBloc
       if (user != null) {
         emit(AuthenticationSignUpSuccess(user: user));
       } else {
+        print('Stack 1');
         emit(const AuthenticationSignUpError('Erro ao criar a conta'));
       }
     }).onError((e, stack) {
+      print('Stack 2');
       emit(const AuthenticationSignUpError('Erro ao criar a conta'));
     });
   }

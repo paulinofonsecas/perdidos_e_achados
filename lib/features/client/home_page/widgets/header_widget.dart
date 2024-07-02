@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/dados/entidades/local_user.dart';
 import 'package:gestao_restaurante/dependencies.dart';
-import 'package:gestao_restaurante/global/global_logo_widget.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -59,7 +58,7 @@ class HeaderWidget extends StatelessWidget {
                     size: 20,
                   ),
                   Text(
-                    'Silva porto, Cuito, Bié',
+                    'Radío Bié, Cuito, Castanheira',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 18,
@@ -69,10 +68,10 @@ class HeaderWidget extends StatelessWidget {
               ),
             ],
           ),
-          const Align(
-            alignment: Alignment.topRight,
-            child: GlobalLogoWidget(size: 80),
-          ),
+          // const Align(
+          //   alignment: Alignment.topRight,
+          //   child: GlobalLogoWidget(size: 80),
+          // ),
         ],
       ),
     );

@@ -31,20 +31,6 @@ class AuthenticationBody extends StatelessWidget {
             ),
           );
         }
-
-        if (state is AuthenticationSignInSuccess) {
-          if (getIt.isRegistered<LocalUser>()) {
-            getIt.unregister<LocalUser>();
-          }
-
-          getIt.registerSingleton<LocalUser>(state.user);
-
-          if (state.user.role == 'admin') {
-            Navigator.of(context).pushReplacement(GestaoProdutosPage.route());
-          } else {
-            Navigator.of(context).pushReplacement(HomePagePage.route());
-          }
-        }
       },
       child: _buildAuthForms(context),
     );

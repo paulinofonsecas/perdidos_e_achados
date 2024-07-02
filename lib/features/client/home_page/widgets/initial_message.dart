@@ -11,7 +11,7 @@ class InitialMessage extends StatelessWidget {
         'Temos para si varios sabores para sua refeição',
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: Colors.orange,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
             ),
       ),

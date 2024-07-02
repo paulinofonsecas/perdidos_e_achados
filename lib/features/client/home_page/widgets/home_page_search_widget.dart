@@ -26,20 +26,20 @@ class HomePageSearchWidget extends StatelessWidget {
         height: 58,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.orange.withOpacity(0.02),
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.02),
           border: Border.all(
             width: 1.5,
           ),
         ),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.search,
-              color: Colors.deepOrange,
+              color: Theme.of(context).colorScheme.primaryContainer,
             ),
             const GutterTiny(),
             Text(
-              'Pesquise por produtos',
+              'Pesquise por items',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: Colors.black.withOpacity(0.5),
                   ),

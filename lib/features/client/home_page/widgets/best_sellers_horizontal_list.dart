@@ -15,7 +15,8 @@ class BestSallersHorizontalList extends StatelessWidget {
       children: [
         PadWid(
           child: Text(
-            'Pratos do dia',
+            'Items recentemente visitados',
+            maxLines: 2,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),

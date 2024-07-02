@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/gestao_produtos.dart';
-import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/produto_item_listview.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/produtos_listview_widget.dart';
 
 /// {@template gestao_produtos_body}
@@ -28,7 +26,7 @@ class GestaoProdutosBody extends StatelessWidget {
         }
 
         if (state is GetAllProdutosEmpty) {
-          return const Center(child: Text('Sem produtos cadastrados'));
+          return const Center(child: Text('Sem items cadastrados'));
         }
 
         if (state is GetAllProdutosSuccess) {

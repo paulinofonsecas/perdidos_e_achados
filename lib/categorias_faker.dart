@@ -1,16 +1,16 @@
 import 'package:gestao_restaurante/dados/entidades/categoria_model.dart';
 
 final categorias = [
-  'Hambúrgueres',
-  'Sanduíches',
-  'Pizzas',
-  'Saladas',
-  'Acompanhamentos',
-  'Bebidas',
-  'Sobremesas',
-  'Wraps',
-  'Tacos',
-  'Nuggets',
+  'Eletrônicos',
+  'Acessórios',
+  'Documentos',
+  'Roupas',
+  'Bolsas e Mochilas',
+  'Joias',
+  'Chaves',
+  'Equipamentos Esportivos',
+  'Brinquedos',
+  'Livros e Papelaria',
 ];
 
 List<CategoriaModel> categoriaList =
