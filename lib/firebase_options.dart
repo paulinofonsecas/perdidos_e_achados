@@ -50,20 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDdkrliObWqhPMuGF1nPCtDnZOwBHeQ9sw',
-    appId: '1:1086031755976:web:39aa47c5f20cdfa09bc3fd',
-    messagingSenderId: '1086031755976',
-    projectId: 'gestao-restaurante',
-    authDomain: 'gestao-restaurante.firebaseapp.com',
-    storageBucket: 'gestao-restaurante.appspot.com',
-    measurementId: 'G-2LJ2F6QM9T',
+    apiKey: 'AIzaSyAzI34gDA6_VOVPifIS-97MVMl4Uik9qQQ',
+    appId: '1:423898073300:web:7aa795a169fe3d6c465341',
+    messagingSenderId: '423898073300',
+    projectId: 'perdidos-e-achados-4163a',
+    authDomain: 'perdidos-e-achados-4163a.firebaseapp.com',
+    storageBucket: 'perdidos-e-achados-4163a.appspot.com',
+    measurementId: 'G-97G14J5C3N',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD6OVZ54zJDbhczKcYtzQhROtHJgJHWqjA',
-    appId: '1:1086031755976:android:983bd4457b29ac279bc3fd',
-    messagingSenderId: '1086031755976',
-    projectId: 'gestao-restaurante',
-    storageBucket: 'gestao-restaurante.appspot.com',
+    apiKey: 'AIzaSyC5kP5Wx2Dj0eyQehmt0-qqAKk4EqCaHK8',
+    appId: '1:423898073300:android:9784479ba6269906465341',
+    messagingSenderId: '423898073300',
+    projectId: 'perdidos-e-achados-4163a',
+    storageBucket: 'perdidos-e-achados-4163a.appspot.com',
   );
+
 }

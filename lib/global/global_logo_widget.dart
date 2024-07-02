@@ -18,7 +18,7 @@ class GlobalLogoWidget extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(90),
           child: Image.asset(
-            'assets/imgs/logo.jpg',
+            'assets/imgs/logo.png',
           ),
         ),
       ),
