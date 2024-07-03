@@ -11,6 +11,13 @@ class DescricaoInputField extends StatelessWidget {
       onChanged: (t) {
         context.read<DescricaoInputCubit>().onChanged(t);
       },
+      validator: (t) {
+        if (t == null || t.isEmpty) {
+          return 'Insira uma descrição do item perdido';
+        }
+
+        return null;
+      },
       decoration: const InputDecoration(
         labelText: 'Descrição',
         border: OutlineInputBorder(),

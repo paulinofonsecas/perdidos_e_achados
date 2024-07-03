@@ -11,16 +11,16 @@ abstract class EncomendaEvent extends Equatable {
 /// Event added when some custom logic happens
 /// {@endtemplate}
 class EncomendarEvent extends EncomendaEvent {
-  const EncomendarEvent(this.localizacao, this.produto, this.numero);
+  const EncomendarEvent(this.localizacao, this.item, this.numero);
 
   final String localizacao;
-  final ProdutoModel produto;
+  final ItemModel item;
   final String numero;
 
   @override
   List<Object> get props => [
         localizacao,
-        produto,
+        item,
         numero,
       ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/dados/servicos/login_firebase.dart';
+import 'package:gestao_restaurante/features/admin/gestao_produtos/view/gestao_produtos_page.dart';
 import 'package:gestao_restaurante/global/authentication/view/authentication_page.dart';
 import 'package:gestao_restaurante/global/global_logo_widget.dart';
 
@@ -27,8 +28,15 @@ class HomePageDrawer extends StatelessWidget {
               ),
             ),
             const ListTile(
-              title: Text('Items salvos'),
+              title: Text('Items favoritos'),
               leading: Icon(Icons.bookmark_outline),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).push(GestaoProdutosPage.route());
+              },
+              title: const Text('Gestão'),
+              leading: const Icon(Icons.gesture),
             ),
             const Divider(),
             ListTile(

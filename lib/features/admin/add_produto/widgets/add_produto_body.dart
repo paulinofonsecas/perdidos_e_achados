@@ -6,6 +6,7 @@ import 'package:gestao_restaurante/features/admin/add_produto/widgets/categoria_
 import 'package:gestao_restaurante/features/admin/add_produto/widgets/data_item_perdido_input_field.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/widgets/descricao_input_field.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/widgets/imagem_input_field.dart';
+import 'package:gestao_restaurante/features/admin/add_produto/widgets/local_do_item_perdido_input_field.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/widgets/nome_input_field.dart';
 
 /// {@template add_produto_body}
@@ -36,19 +37,24 @@ class _AddProdutoBodyState extends State<AddProdutoBody> {
             return Center(child: Text(state.message));
           }
 
-          return const SingleChildScrollView(
-            child: Column(
-              children: [
-                NomeInputField(),
-                Gutter(),
-                DescricaoInputField(),
-                Gutter(),
-                CategoriaInputField(),
-                Gutter(),
-                DataItemPerdidoInputField(),
-                Gutter(),
-                ImagemInputField(),
-              ],
+          return SingleChildScrollView(
+            child: Form(
+              key: context.read<AddProdutoBloc>().formKey,
+              child: const Column(
+                children: [
+                  NomeInputField(),
+                  Gutter(),
+                  DescricaoInputField(),
+                  Gutter(),
+                  LocalDoItemPerdidoInputField(),
+                  Gutter(),
+                  CategoriaInputField(),
+                  Gutter(),
+                  DataItemPerdidoInputField(),
+                  Gutter(),
+                  ImagemInputField(),
+                ],
+              ),
             ),
           );
         },

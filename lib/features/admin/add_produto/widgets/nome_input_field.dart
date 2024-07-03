@@ -11,6 +11,13 @@ class NomeInputField extends StatelessWidget {
       onChanged: (t) {
         context.read<NomeInputCubit>().onChanged(t);
       },
+      validator: (t) {
+        if (t == null || t.isEmpty) {
+          return 'Insira um nome';
+        }
+
+        return null;
+      },
       decoration: const InputDecoration(
         labelText: 'Nome',
         border: OutlineInputBorder(),

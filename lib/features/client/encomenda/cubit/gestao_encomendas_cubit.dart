@@ -17,7 +17,7 @@ class GestaoEncomendasCubit extends Cubit<GestaoEncomendasState> {
         .then(
           (value) => emit(
             GestaoEncomendasSuccess(
-              encomendas: value.where((e) => e.estaEmAndamento).toList(),
+              encomendas: value.where((e) => true).toList(),
             ),
           ),
         )

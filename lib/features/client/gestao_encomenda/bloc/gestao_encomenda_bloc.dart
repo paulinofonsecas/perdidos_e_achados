@@ -34,9 +34,7 @@ class GestaoEncomendaBloc
     emit(GestaoEncomendaLoading());
     final encomendaFirebase = EncomendaFirebase.instance;
 
-    final encomenda = event.encomenda.copyWith(
-      estaEmAndamento: event.estaEmAndamento,
-    );
+    final encomenda = event.encomenda.copyWith();
 
     await encomendaFirebase
         .addEncomenda(encomenda)

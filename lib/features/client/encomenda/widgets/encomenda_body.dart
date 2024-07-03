@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_restaurante/constants.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/features/client/encomenda/bloc/encomenda_bloc.dart';
 
 /// {@template encomenda_body}
@@ -14,11 +14,11 @@ import 'package:gestao_restaurante/features/client/encomenda/bloc/encomenda_bloc
 class EncomendaBody extends StatefulWidget {
   /// {@macro encomenda_body}
   const EncomendaBody({
-    required this.produto,
+    required this.item,
     super.key,
   });
 
-  final ProdutoModel produto;
+  final ItemModel item;
 
   @override
   State<EncomendaBody> createState() => _EncomendaBodyState();
@@ -46,7 +46,7 @@ class _EncomendaBodyState extends State<EncomendaBody> {
         builder: (context, state) {
           if (state is EncomendaInitial) {
             return _EncomendaForm(
-              produto: widget.produto,
+              produto: widget.item,
               formKey: _formKey,
               localicaoController: _localicaoController,
               numeroController: _numeroController,
@@ -66,7 +66,7 @@ class _EncomendaBodyState extends State<EncomendaBody> {
           }
 
           return _EncomendaForm(
-            produto: widget.produto,
+            produto: widget.item,
             formKey: _formKey,
             localicaoController: _localicaoController,
             numeroController: _numeroController,
@@ -85,7 +85,7 @@ class _EncomendaForm extends StatelessWidget {
     required this.numeroController,
   });
 
-  final ProdutoModel produto;
+  final ItemModel produto;
   final GlobalKey<FormState> formKey;
   final TextEditingController localicaoController;
   final TextEditingController numeroController;

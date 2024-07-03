@@ -32,3 +32,29 @@ class GlobalSearchCategoriaInitial extends GlobalSearchCategoriaState {
   /// {@macro global_search_categoria_initial}
   const GlobalSearchCategoriaInitial() : super();
 }
+
+class GlobalSearchCategoriaLoading extends GlobalSearchCategoriaState {
+  const GlobalSearchCategoriaLoading() : super();
+}
+
+class GlobalSearchCategoriaEmpty extends GlobalSearchCategoriaState {}
+
+class GlobalSearchCategoriaSuccess extends GlobalSearchCategoriaState {
+  /// {@macro gestao_produtos_initial}
+  const GlobalSearchCategoriaSuccess(this.items) : super();
+
+  final List<ItemModel> items;
+
+  @override
+  List<Object> get props => [items];
+}
+
+class GlobalSearchCategoriaError extends GlobalSearchCategoriaState {
+  /// {@macro gestao_produtos_initial}
+  const GlobalSearchCategoriaError(this.message) : super();
+
+  final String message;
+
+  @override
+  List<Object> get props => [message];
+}

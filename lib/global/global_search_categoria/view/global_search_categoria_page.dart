@@ -28,7 +28,7 @@ class GlobalSearchCategoriaPage extends StatelessWidget {
           create: (context) => SearchListBooksCubit(),
         ),
       ],
-      child: const GlobalSearchCategoriaView(),
+      child: const Scaffold(body: GlobalSearchCategoriaView()),
     );
   }
 }

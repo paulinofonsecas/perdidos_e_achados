@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/features/client/encomenda/bloc/bloc.dart';
 import 'package:gestao_restaurante/features/client/encomenda/cubit/gestao_encomendas_cubit.dart';
@@ -10,17 +11,17 @@ import 'package:gestao_restaurante/features/client/encomenda/widgets/encomenda_b
 /// A description for EncomendaPage
 /// {@endtemplate}
 class EncomendaPage extends StatelessWidget {
-  const EncomendaPage({required this.produto, super.key});
+  const EncomendaPage({required this.item, super.key});
 
-  static Route<dynamic> route(ProdutoModel produto) {
+  static Route<dynamic> route(ItemModel item) {
     return MaterialPageRoute<dynamic>(
       builder: (_) => EncomendaPage(
-        produto: produto,
+        item: item,
       ),
     );
   }
 
-  final ProdutoModel produto;
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class EncomendaPage extends StatelessWidget {
       ],
       child: Scaffold(
         body: EncomendaView(
-          produto: produto,
+          item: item,
         ),
       ),
     );
@@ -51,16 +52,16 @@ class EncomendaPage extends StatelessWidget {
 class EncomendaView extends StatelessWidget {
   /// {@macro encomenda_view}
   const EncomendaView({
-    required this.produto,
+    required this.item,
     super.key,
   });
 
-  final ProdutoModel produto;
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {
     return EncomendaBody(
-      produto: produto,
+      item: item,
     );
   }
 }

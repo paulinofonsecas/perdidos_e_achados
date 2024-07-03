@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 
 class EncomendaModel {
   final String id;
   final String userId;
-  final ProdutoModel produto;
+  final ItemModel produto;
   final String localizacao;
   final String numero;
-  final bool estaEmAndamento;
-  final DateTime encomendaDate;
+  final DateTime resgatadoDate;
 
   EncomendaModel({
     required this.id,
@@ -18,18 +18,16 @@ class EncomendaModel {
     required this.produto,
     required this.localizacao,
     required this.numero,
-    required this.estaEmAndamento,
-    required this.encomendaDate,
+    required this.resgatadoDate,
   });
 
   EncomendaModel copyWith({
     String? id,
     String? userId,
-    ProdutoModel? produto,
+    ItemModel? produto,
     String? localizacao,
     String? numero,
-    bool? estaEmAndamento,
-    DateTime? encomendaDate,
+    DateTime? resgatadoDate,
   }) {
     return EncomendaModel(
       id: id ?? this.id,
@@ -37,8 +35,7 @@ class EncomendaModel {
       produto: produto ?? this.produto,
       localizacao: localizacao ?? this.localizacao,
       numero: numero ?? this.numero,
-      estaEmAndamento: estaEmAndamento ?? this.estaEmAndamento,
-      encomendaDate: encomendaDate ?? this.encomendaDate,
+      resgatadoDate: resgatadoDate ?? this.resgatadoDate,
     );
   }
 
@@ -49,8 +46,7 @@ class EncomendaModel {
       'produto': produto.toMap(),
       'localizacao': localizacao,
       'numero': numero,
-      'estaEmAndamento': estaEmAndamento,
-      'encomendaDate': encomendaDate.millisecondsSinceEpoch,
+      'resgatadoDate': resgatadoDate.millisecondsSinceEpoch,
     };
   }
 
@@ -58,12 +54,11 @@ class EncomendaModel {
     return EncomendaModel(
       id: map['id'] as String,
       userId: map['userId'] as String,
-      produto: ProdutoModel.fromMap(map['produto'] as Map<String, dynamic>),
+      produto: ItemModel.fromMap(map['produto'] as Map<String, dynamic>),
       localizacao: map['localizacao'] as String,
       numero: map['numero'] as String,
-      estaEmAndamento: map['estaEmAndamento'] as bool,
-      encomendaDate:
-          DateTime.fromMillisecondsSinceEpoch(map['encomendaDate'] as int),
+      resgatadoDate:
+          DateTime.fromMillisecondsSinceEpoch(map['resgatadoDate'] as int),
     );
   }
 
@@ -74,7 +69,7 @@ class EncomendaModel {
 
   @override
   String toString() {
-    return 'EncomendaModel(id: $id, userId: $userId, produto: $produto, localizacao: $localizacao, numero: $numero, estaEmAndamento: $estaEmAndamento, encomendaDate: $encomendaDate)';
+    return 'EncomendaModel(id: $id, userId: $userId, produto: $produto, localizacao: $localizacao, numero: $numero, resgatadoDate: $resgatadoDate)';
   }
 
   @override
@@ -86,8 +81,7 @@ class EncomendaModel {
         other.produto == produto &&
         other.localizacao == localizacao &&
         other.numero == numero &&
-        other.estaEmAndamento == estaEmAndamento &&
-        other.encomendaDate == encomendaDate;
+        other.resgatadoDate == resgatadoDate;
   }
 
   @override
@@ -97,7 +91,6 @@ class EncomendaModel {
         produto.hashCode ^
         localizacao.hashCode ^
         numero.hashCode ^
-        estaEmAndamento.hashCode ^
-        encomendaDate.hashCode;
+        resgatadoDate.hashCode;
   }
 }

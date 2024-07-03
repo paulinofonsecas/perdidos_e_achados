@@ -4,7 +4,7 @@ import 'package:gestao_restaurante/constants.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/filter_widget.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/produto_item_listview.dart';
-import 'package:gestao_restaurante/global/product_detail/view/product_detail_page.dart';
+import 'package:gestao_restaurante/global/item_details/view/item_details_page.dart';
 
 class ProdutosListviewWidget extends StatefulWidget {
   const ProdutosListviewWidget({required this.items, super.key});
@@ -42,7 +42,7 @@ class _ProdutosListviewWidgetState extends State<ProdutosListviewWidget> {
             onTap: () {
               Navigator.push(
                 context,
-                ProductDetailPage.route(item),
+                ItemDetailsPage.route(item),
               );
             },
           ),

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:gestao_restaurante/dependencies.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/view/add_produto_page.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/bloc/bloc.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/cubit/fielter_cubit.dart';
@@ -12,12 +13,18 @@ import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/gestao
 /// {@endtemplate}
 class GestaoProdutosPage extends StatelessWidget {
   /// {@macro gestao_produtos_page}
-  const GestaoProdutosPage({super.key});
+  GestaoProdutosPage({super.key}) {
+    if (getIt.isRegistered<FilterCubit>()) {
+      getIt.unregister<FilterCubit>();
+    }
+
+    getIt.registerSingleton(FilterCubit());
+  }
 
   /// The static route for GestaoProdutosPage
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(
-      builder: (_) => const GestaoProdutosPage(),
+      builder: (_) => GestaoProdutosPage(),
     );
   }
 
@@ -29,31 +36,35 @@ class GestaoProdutosPage extends StatelessWidget {
           create: (context) => GestaoProdutosBloc(),
         ),
         BlocProvider(
-          create: (context) => FilterCubit(),
+          create: (context) => getIt<FilterCubit>(),
         ),
       ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Gestão de Items'),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                // await populateProducts().then((e) {
-                //   print('Populou');
-                // });
-              },
-              child: const Text('Atualizar'),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Gestão de Items'),
+              // actions: [
+              //   TextButton(
+              //     onPressed: () async {
+              //       // await populateProducts().then((e) {
+              //       //   print('Populou');
+              //       // });
+              //     },
+              //     child: const Text('Atualizar'),
+              //   ),
+              // ],
             ),
-          ],
-        ),
-        drawer: const GestaoProdutosDrawer(),
-        body: const GestaoProdutosView(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context, AddProdutoPage.route());
-          },
-          child: const Icon(Icons.add),
-        ),
+            drawer: const GestaoProdutosDrawer(),
+            body: const GestaoProdutosView(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(context, AddProdutoPage.route());
+              },
+              child: const Icon(Icons.add),
+            ),
+          );
+        },
       ),
     );
   }
@@ -73,7 +84,7 @@ class GestaoProdutosView extends StatelessWidget {
         context.read<GestaoProdutosBloc>().add(
               GetAllProdutosEvent(
                 inCache: false,
-                ordenacao: context.read<FilterCubit>().state.ordenacao,
+                ordenacao: getIt<FilterCubit>().state.ordenacao,
               ),
             );
       },

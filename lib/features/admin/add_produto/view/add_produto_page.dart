@@ -5,6 +5,7 @@ import 'package:gestao_restaurante/features/admin/add_produto/cubit/data_item_pe
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/descricao_input_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/disponibilidade_field_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/imagem_field_cubit.dart';
+import 'package:gestao_restaurante/features/admin/add_produto/cubit/localizacao_input_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/nome_input_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/widgets/add_produto_body.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/gestao_produtos.dart';
@@ -35,6 +36,9 @@ class AddProdutoPage extends StatelessWidget {
           create: (context) => DescricaoInputCubit(),
         ),
         BlocProvider(
+          create: (context) => LocalizacaoInputCubit(),
+        ),
+        BlocProvider(
           create: (context) => DataItemPerdidoCubit(),
         ),
         BlocProvider(
@@ -51,14 +55,15 @@ class AddProdutoPage extends StatelessWidget {
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Adicionar Produto'),
+              title: const Text('Add item'),
               actions: [
                 TextButton.icon(
                   icon: const Icon(Icons.save),
                   onPressed: () {
-                    context
-                        .read<AddProdutoBloc>()
-                        .add(AddNewProdutoEvent(context));
+                    final bloc = context.read<AddProdutoBloc>();
+                    if (bloc.formKey.currentState!.validate()) {
+                      bloc.add(AddNewProdutoEvent(context));
+                    }
                   },
                   label: const Text('Salvar'),
                 ),

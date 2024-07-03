@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gestao_restaurante/dados/entidades/encomenda.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/local_user.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/dados/servicos/encomenda_firebase.dart';
@@ -28,11 +29,10 @@ class EncomendaBloc extends Bloc<EncomendaEvent, EncomendaState> {
     final encomenda = EncomendaModel(
       id: const Uuid().v4(),
       userId: userId,
-      produto: event.produto,
+      produto: event.item,
       localizacao: event.localizacao,
-      estaEmAndamento: false,
       numero: event.numero,
-      encomendaDate: DateTime.now(),
+      resgatadoDate: DateTime.now(),
     );
 
     await encomendaFirebase

@@ -22,6 +22,8 @@ class AddProdutoBloc extends Bloc<AddProdutoEvent, AddProdutoState> {
     on<AddNewProdutoEvent>(_onAddNewProdutoEvent);
   }
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   FutureOr<void> _onAddNewProdutoEvent(
     AddNewProdutoEvent event,
     Emitter<AddProdutoState> emit,

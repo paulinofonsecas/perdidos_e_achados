@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
-import 'package:gestao_restaurante/global/product_detail/widgets/carrousel_images.dart';
+import 'package:gestao_restaurante/features/client/encomenda/view/encomenda_page.dart';
+import 'package:gestao_restaurante/global/item_details/widgets/carrousel_images.dart';
 import 'package:gestao_restaurante/helpers.dart';
 
 /// {@template item_details_body}
@@ -48,7 +49,7 @@ class ItemDetailsBody extends StatelessWidget {
             const GutterLarge(),
             const _DescriptionWidget(),
             const GutterLarge(),
-            const _BotaoResgatar(),
+            // _BotaoResgatar(item),
           ],
         ),
       ),
@@ -57,21 +58,36 @@ class ItemDetailsBody extends StatelessWidget {
 }
 
 class _BotaoResgatar extends StatelessWidget {
-  const _BotaoResgatar();
+  const _BotaoResgatar(this.item);
+
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 60,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Center(
-        child: Text(
-          'Resgatar item',
-          style: Theme.of(context).textTheme.titleLarge,
+    return InkWell(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return EncomendaPage(
+              item: item,
+            );
+          },
+        );
+        Navigator.push(context, EncomendaPage.route(item));
+      },
+      child: Container(
+        width: double.infinity,
+        height: 60,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(
+          child: Text(
+            'Resgatar item',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
       ),
     );
@@ -104,39 +120,6 @@ class _DescriptionWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _ImageWidget extends StatelessWidget {
-  const _ImageWidget({
-    required this.size,
-  });
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 5,
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: Image.network(
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-aAc2hyGWJ67kqH3I1ZK-O0EJFzz52h2siQFO3njSLbLgiD7yNFXHhFjShsEeS_9_zEw&usqp=CAU',
-          width: double.infinity,
-          height: size.height * .4,
-          fit: BoxFit.cover,
-        ),
-      ),
     );
   }
 }

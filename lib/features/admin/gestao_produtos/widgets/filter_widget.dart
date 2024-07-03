@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/constants.dart';
 import 'package:gestao_restaurante/dados/models/ordenacao.dart';
+import 'package:gestao_restaurante/dependencies.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/cubit/fielter_cubit.dart';
 import 'package:gestao_restaurante/global/authentication/bloc/bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -36,9 +37,7 @@ class FilterWidget extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  context
-                      .read<FilterCubit>()
-                      .changeFilter(Ordenacao.alfabetica);
+                  getIt<FilterCubit>().changeFilter(Ordenacao.alfabetica);
                 },
                 title: Text(
                   'Nome',
@@ -55,9 +54,7 @@ class FilterWidget extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  context
-                      .read<FilterCubit>()
-                      .changeFilter(Ordenacao.dataAdicao);
+                  getIt<FilterCubit>().changeFilter(Ordenacao.dataAdicao);
                 },
                 title: Text(
                   'Data de adição',
@@ -74,9 +71,7 @@ class FilterWidget extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  context
-                      .read<FilterCubit>()
-                      .changeFilter(Ordenacao.dataPerdido);
+                  getIt<FilterCubit>().changeFilter(Ordenacao.dataPerdido);
                 },
                 title: Text(
                   'Data de perdido',
