@@ -2,9 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/constants.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/dependencies.dart';
-import 'package:gestao_restaurante/features/client/encomenda/view/encomenda_page.dart';
 import 'package:gestao_restaurante/global/product_detail/widgets/carrousel_images.dart';
 import 'package:gestao_restaurante/global/product_detail/widgets/product_info_widget.dart';
 

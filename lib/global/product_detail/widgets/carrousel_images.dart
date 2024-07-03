@@ -7,10 +7,12 @@ import 'package:gestao_restaurante/global/widgets/global_image_network_widget.da
 class CarrouselImages extends StatelessWidget {
   const CarrouselImages({
     required this.item,
+    this.isTapping = false,
     super.key,
   });
 
   final ItemModel item;
+  final bool isTapping;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class CarrouselImages extends StatelessWidget {
         items: item.imagemUrl.map((i) {
           return _ImageItemWidget(
             url: i,
+            isTapping: isTapping,
           );
         }).toList(),
       ),
@@ -39,9 +42,11 @@ class CarrouselImages extends StatelessWidget {
 class _ImageItemWidget extends StatelessWidget {
   const _ImageItemWidget({
     required this.url,
+    this.isTapping = false,
   });
 
   final String url;
+  final bool isTapping;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +61,7 @@ class _ImageItemWidget extends StatelessWidget {
       child: GlobalImageNetworkWidget(
         url,
         width: 300,
+        isTapping: isTapping,
       ),
     );
   }

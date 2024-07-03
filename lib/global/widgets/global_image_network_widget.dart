@@ -16,6 +16,7 @@ class GlobalImageNetworkWidget extends StatefulWidget {
     this.height,
     this.fit,
     this.borderRadius,
+    this.isTapping = false,
     super.key,
   });
 
@@ -24,6 +25,7 @@ class GlobalImageNetworkWidget extends StatefulWidget {
   final double? height;
   final BoxFit? fit;
   final BorderRadius? borderRadius;
+  final bool isTapping;
 
   @override
   State<GlobalImageNetworkWidget> createState() =>
@@ -42,15 +44,17 @@ class _GlobalImageNetworkWidgetState extends State<GlobalImageNetworkWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        setState(() {
-          if (localFit == BoxFit.cover) {
-            localFit = BoxFit.fitHeight;
-          } else {
-            localFit = BoxFit.cover;
-          }
-        });
-      },
+      onTap: widget.isTapping
+          ? () {
+              setState(() {
+                if (localFit == BoxFit.cover) {
+                  localFit = BoxFit.fitHeight;
+                } else {
+                  localFit = BoxFit.cover;
+                }
+              });
+            }
+          : null,
       child: ClipRRect(
         borderRadius: widget.borderRadius ?? BorderRadius.circular(20),
         child: CachedNetworkImage(

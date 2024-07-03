@@ -47,32 +47,38 @@ class BestSellerHorizontalListItem extends StatelessWidget {
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  // Container(
+                  //   padding: const EdgeInsets.all(4),
+                  //   margin: const EdgeInsets.all(4),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(20),
+                  //     color: Colors.white,
+                  //   ),
+                  //   child: const Icon(
+                  //     Icons.favorite_border,
+                  //     color: Colors.red,
+                  //   ),
+                  // ),
+                  const SizedBox(),
                   Container(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 4,
+                    ),
                     margin: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                    ),
-                    child: const Icon(
-                      Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    margin: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.8),
                     ),
                     child: Text(
                       item.categoria.descricao,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 12,
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 13,
                       ),
                     ),
                   ),

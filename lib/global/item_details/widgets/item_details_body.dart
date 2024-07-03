@@ -18,24 +18,26 @@ class ItemDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CarrouselImages(item: item),
+            CarrouselImages(
+              item: item,
+              isTapping: true,
+            ),
             const GutterLarge(),
             Text(
               'Pasta preta de couro',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const Gutter(),
-            const ColumnInfoWidget(
-              title: 'Encontrado em',
+            ColumnInfoWidget(
+              title: 'Perdido em',
               icon: Icons.location_pin,
-              info: 'Cuito, piloto',
+              info: item.localEncontrado ?? 'N/D',
             ),
             const Gutter(),
             ColumnInfoWidget(

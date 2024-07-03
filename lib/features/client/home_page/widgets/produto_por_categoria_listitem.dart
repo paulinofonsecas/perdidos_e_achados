@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
-import 'package:gestao_restaurante/global/product_detail/view/product_detail_page.dart';
+import 'package:gestao_restaurante/global/item_details/view/item_details_page.dart';
 
 class ProdutoPorCategoriaListItem extends StatelessWidget {
   const ProdutoPorCategoriaListItem({
@@ -25,7 +25,7 @@ class ProdutoPorCategoriaListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(ProductDetailPage.route(item));
+        Navigator.of(context).push(ItemDetailsPage.route(item));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(
