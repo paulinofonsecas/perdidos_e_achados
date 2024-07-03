@@ -5,6 +5,7 @@ import 'package:gestao_restaurante/features/admin/add_produto/view/add_produto_p
 import 'package:gestao_restaurante/features/admin/gestao_produtos/bloc/bloc.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/gestao_produtos_body.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/gestao_produtos_drawer.dart';
+import 'package:gestao_restaurante/produtos_faker.dart';
 
 /// {@template gestao_produtos_page}
 /// A description for GestaoProdutosPage
@@ -30,7 +31,9 @@ class GestaoProdutosPage extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () async {
-                // await populateProducts();
+                await populateProducts().then((e) {
+                  print('Populou');
+                });
               },
               child: const Text('Popular'),
             ),

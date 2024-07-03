@@ -1,16 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/global/widgets/global_image_network_widget.dart';
 
 class ProdutoItemListView extends StatelessWidget {
   const ProdutoItemListView({
-    required this.produto,
+    required this.item,
     super.key,
     this.onTap,
   });
 
-  final ProdutoModel produto;
+  final ItemModel item;
   final VoidCallback? onTap;
 
   @override
@@ -18,16 +20,16 @@ class ProdutoItemListView extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       title: Text(
-        produto.nome,
+        item.nome,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
       ),
-      subtitle: Text(produto.preco.toString()),
+      subtitle: Text(item.categoria.descricao),
       leading: _ImageWidget(
-        url: produto.imagemUrl.firstOrNull ?? '',
+        url: item.imagemUrl[Random().nextInt(item.imagemUrl.length)],
       ),
     );
   }

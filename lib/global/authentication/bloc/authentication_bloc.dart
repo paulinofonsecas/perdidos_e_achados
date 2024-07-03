@@ -62,15 +62,8 @@ class AuthenticationBloc
     final email = event.email;
     final password = event.password;
 
-    await _loginFirebase.login(email, password).then((user) async {
-      if (user != null) {
-        await _storeUser(user);
-        emit(AuthenticationSignInSuccess(user: user));
-        return;
-      } else {
-        emit(const AuthenticationSignInError('Erro ao realizar login'));
-      }
-    }).onError((e, stack) {
+    final user =
+        await _loginFirebase.login(email, password).onError((e, stack) {
       if (e is FirebaseAuthException) {
         if (e.code == 'invalid-credential') {
           emit(const AuthenticationSignInError('Credenciais inválidas'));
@@ -86,7 +79,16 @@ class AuthenticationBloc
 
         return;
       }
+      return null;
     });
+
+    if (user != null) {
+      // await _storeUser(user);
+      emit(AuthenticationSignInSuccess(user: user));
+      return;
+    } else {
+      emit(const AuthenticationSignInError('Erro ao realizar login'));
+    }
   }
 
   Future<void> _storeUser(LocalUser user) async {

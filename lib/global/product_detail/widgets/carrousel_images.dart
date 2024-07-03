@@ -1,16 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/constants.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/global/widgets/global_image_network_widget.dart';
 
 class CarrouselImages extends StatelessWidget {
   const CarrouselImages({
-    required this.produto,
+    required this.item,
     super.key,
   });
 
-  final ProdutoModel produto;
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CarrouselImages extends StatelessWidget {
           autoPlay: true,
           autoPlayInterval: const Duration(seconds: 5),
         ),
-        items: produto.imagemUrl.map((i) {
+        items: item.imagemUrl.map((i) {
           return _ImageItemWidget(
             url: i,
           );

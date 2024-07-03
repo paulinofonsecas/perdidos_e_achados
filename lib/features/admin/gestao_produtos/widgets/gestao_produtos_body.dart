@@ -30,7 +30,7 @@ class GestaoProdutosBody extends StatelessWidget {
         }
 
         if (state is GetAllProdutosSuccess) {
-          return ProdutosListviewWidget(produtos: state.produtos);
+          return ProdutosListviewWidget(items: state.items);
         }
 
         return const Placeholder();

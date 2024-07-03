@@ -87,6 +87,11 @@ class AuthenticationView extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
+        if (state is AuthenticationSuccess ||
+            state is AuthenticationSignInSuccess) {
+          return const SizedBox();
+        }
+
         return const AuthenticationBody();
       },
     );

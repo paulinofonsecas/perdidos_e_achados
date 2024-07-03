@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/constants.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/dependencies.dart';
 import 'package:gestao_restaurante/features/client/encomenda/view/encomenda_page.dart';
@@ -22,7 +23,7 @@ class ProductDetailBody extends StatefulWidget {
 class _ProductDetailBodyState extends State<ProductDetailBody> {
   @override
   Widget build(BuildContext context) {
-    final produto = getIt<ProdutoModel>();
+    final item = getIt<ItemModel>();
 
     return Stack(
       fit: StackFit.expand,
@@ -30,8 +31,8 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CarrouselImages(produto: produto),
-            ProductInfoWidget(produto: produto),
+            CarrouselImages(item: item),
+            ProductInfoWidget(item: item),
           ],
         ),
         Positioned(
@@ -45,14 +46,14 @@ class _ProductDetailBodyState extends State<ProductDetailBody> {
             ),
             child: FilledButton.icon(
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return EncomendaPage(
-                      produto: produto,
-                    );
-                  },
-                );
+                // showModalBottomSheet(
+                //   context: context,
+                //   builder: (context) {
+                //     return EncomendaPage(
+                //       produto: item,
+                //     );
+                //   },
+                // );
                 // Navigator.push(context, EncomendaPage.route());
               },
               label: const Text('Entrar em contacto'),

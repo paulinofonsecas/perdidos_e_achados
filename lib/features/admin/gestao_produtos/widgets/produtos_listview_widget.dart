@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/constants.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/produto_item_listview.dart';
 import 'package:gestao_restaurante/global/product_detail/view/product_detail_page.dart';
 
 class ProdutosListviewWidget extends StatefulWidget {
-  const ProdutosListviewWidget({required this.produtos, super.key});
+  const ProdutosListviewWidget({required this.items, super.key});
 
-  final List<ProdutoModel> produtos;
+  final List<ItemModel> items;
 
   @override
   State<ProdutosListviewWidget> createState() => _ProdutosListviewWidgetState();
@@ -29,22 +30,20 @@ class _ProdutosListviewWidgetState extends State<ProdutosListviewWidget> {
     });
   }
 
-  List<Widget> _getProdutosList(List<ProdutoModel> produtos) {
-    return produtos
+  List<Widget> _getProdutosList(List<ItemModel> items) {
+    return items
         .where(
           (e) => e.nome.toLowerCase().contains(filter.trim().toLowerCase()),
         )
         .map(
-          (produto) => ListTile(
-            title: ProdutoItemListView(
-              produto: produto,
+          (item) => ProdutoItemListView(
+              item: item,
               onTap: () {
                 Navigator.push(
                   context,
-                  ProductDetailPage.route(produto),
+                  ProductDetailPage.route(item),
                 );
               },
-            ),
           ),
         )
         .toList();
@@ -57,7 +56,7 @@ class _ProdutosListviewWidgetState extends State<ProdutosListviewWidget> {
         _SearchFieldWidget(_searchController),
         Expanded(
           child: ListView(
-            children: _getProdutosList(widget.produtos),
+            children: _getProdutosList(widget.items),
           ),
         ),
       ],

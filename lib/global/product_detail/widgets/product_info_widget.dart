@@ -2,15 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_restaurante/constants.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 
 class ProductInfoWidget extends StatelessWidget {
   const ProductInfoWidget({
-    required this.produto,
+    required this.item,
     super.key,
   });
 
-  final ProdutoModel produto;
+  final ItemModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ProductInfoWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            produto.nome,
+            item.nome,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -29,7 +29,7 @@ class ProductInfoWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${produto.preco} Kz',
+                item.categoria.descricao,
                 style: const TextStyle(
                   fontWeight: FontWeight.w400,
                 ),
@@ -61,7 +61,7 @@ class ProductInfoWidget extends StatelessWidget {
                 ),
           ),
           Text(
-            produto.descricao,
+            item.descricao,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
                   fontWeight: FontWeight.normal,
                   color: Colors.black54,

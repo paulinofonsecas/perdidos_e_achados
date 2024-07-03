@@ -15,7 +15,7 @@ final class BestSallersHorizontalEmpty extends BestSallersHorizontalState {}
 
 final class BestSallersHorizontalSuccess extends BestSallersHorizontalState {
   const BestSallersHorizontalSuccess({required this.bestSallers});
-  final List<ProdutoModel> bestSallers;
+  final List<ItemModel> bestSallers;
 
   @override
   List<Object> get props => [bestSallers];

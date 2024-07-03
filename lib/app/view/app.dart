@@ -28,7 +28,7 @@ class App extends StatelessWidget {
           PointerDeviceKind.touch,
         },
       ),
-      home: const AuthenticationPage(),
+      home: const GestaoProdutosPage(),
       routes: {
         '/home-page': (context) => const HomePagePage(),
         '/gestao/encomendas': (context) => const GestaoEncomendaPage(),

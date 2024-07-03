@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/dependencies.dart';
 import 'package:gestao_restaurante/global/product_detail/bloc/bloc.dart';
@@ -12,16 +13,16 @@ import 'package:gestao_restaurante/global/product_detail/widgets/product_detail_
 class ProductDetailPage extends StatefulWidget {
   /// {@macro product_detail_page}
   const ProductDetailPage({
-    required this.produto,
+    required this.item,
     super.key,
   });
 
-  final ProdutoModel produto;
+  final ItemModel item;
 
   /// The static route for ProductDetailPage
-  static Route<dynamic> route(ProdutoModel produto) {
+  static Route<dynamic> route(ItemModel item) {
     return MaterialPageRoute<dynamic>(
-      builder: (_) => ProductDetailPage(produto: produto),
+      builder: (_) => ProductDetailPage(item: item),
     );
   }
 
@@ -33,10 +34,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   void initState() {
     super.initState();
-    if (getIt.isRegistered<ProdutoModel>()) {
-      getIt.unregister<ProdutoModel>();
+    if (getIt.isRegistered<ItemModel>()) {
+      getIt.unregister<ItemModel>();
     }
-    getIt.registerSingleton(widget.produto);
+    getIt.registerSingleton(widget.item);
   }
 
   @override

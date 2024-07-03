@@ -21,7 +21,7 @@ final class ProdutoPorCategoriaHorizontalSuccess
   const ProdutoPorCategoriaHorizontalSuccess({
     required this.produtoPorCategoria,
   });
-  final List<ProdutoModel> produtoPorCategoria;
+  final List<ItemModel> produtoPorCategoria;
 
   @override
   List<Object> get props => [produtoPorCategoria];

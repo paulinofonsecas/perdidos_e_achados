@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/dados/servicos/produto_firebase.dart';
 
@@ -9,12 +10,12 @@ class BestSallersHorizontalCubit extends Cubit<BestSallersHorizontalState> {
   BestSallersHorizontalCubit() : super(BestSallersHorizontalInitial());
 
   Future<void> getBestSellerProducts({bool inCache = true}) async {
-    final produtoFirebase = ProdutoFirebase.instance;
+    final produtoFirebase = ItemFirebase.instance;
 
     emit(BestSallersHorizontalLoading());
 
     await produtoFirebase
-        .getProdutos(cache: inCache)
+        .getItems(cache: inCache)
         .then(
           (e) => emit(
             BestSallersHorizontalSuccess(
