@@ -3,26 +3,38 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gestao_restaurante/dados/entidades/categoria_model.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class IProdutoFirebase {
-  Future<List<ProdutoModel>> getProdutos({CategoriaModel? categoria});
-  Future<ProdutoModel> getProduto(String id);
-  Future<ProdutoModel> addProduto(ProdutoModel produto);
-  Future<ProdutoModel> updateProduto(ProdutoModel produto);
-  Future<void> deleteProduto(String id);
+  Future<List<ItemModel>> getItems({CategoriaModel? categoria});
+  Future<ItemModel?> getItem(String id);
+  Future<ItemModel> addItem(ItemModel produto);
+  Future<ItemModel> updateProduto(ItemModel produto);
+  Future<void> deleteItem(String id);
 }
 
-class ProdutoFirebase implements IProdutoFirebase {
-  ProdutoFirebase._();
-  final db = FirebaseFirestore.instance;
-  final storage = FirebaseStorage.instance;
-  List<ProdutoModel> produtosCache = [];
+class ItemFirebase implements IProdutoFirebase {
+  factory ItemFirebase.test([FirebaseFirestore? db, FirebaseStorage? storage]) {
+    return ItemFirebase._(
+      db: db,
+      storage: storage,
+    );
+  }
 
-  static final instance = ProdutoFirebase._();
+  ItemFirebase._({FirebaseFirestore? db, FirebaseStorage? storage}) {
+    this.db = db ?? FirebaseFirestore.instance;
+    this.storage = storage ?? FirebaseStorage.instance;
+  }
 
-  Future<List<String>?> _saveImages(ProdutoModel model) async {
+  static final instance = ItemFirebase._();
+
+  late final FirebaseFirestore db;
+  late final FirebaseStorage storage;
+  List<ItemModel> itemsCache = [];
+  final String collection = 'items';
+
+  Future<List<String>?> _saveImages(ItemModel model) async {
     final resultUrls = <String>[];
 
     if (model.imagemUrl.isNotEmpty) {
@@ -31,7 +43,7 @@ class ProdutoFirebase implements IProdutoFirebase {
       }
 
       for (final url in model.imagemUrl) {
-        final ref = storage.ref('produto_imagens').child(const Uuid().v4());
+        final ref = storage.ref('item_imagens').child(const Uuid().v4());
         await ref.putFile(File(url)).then((value) async {
           resultUrls.add(await value.ref.getDownloadURL());
         });
@@ -44,65 +56,66 @@ class ProdutoFirebase implements IProdutoFirebase {
   }
 
   @override
-  Future<ProdutoModel> addProduto(ProdutoModel produto) async {
+  Future<ItemModel> addItem(ItemModel item) async {
     try {
-      final imagemUrls = await _saveImages(produto);
-      final model = produto.copyWith(imagemUrl: imagemUrls ?? []);
+      final imagemUrls = await _saveImages(item);
+      final model = item.copyWith(imagesUrl: imagemUrls ?? []);
 
-      await db.collection('produtos').add(model.toMap());
-      return produto;
+      await db.collection(collection).doc(model.id).set(model.toMap());
+      return item;
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<void> deleteProduto(String id) async {
+  Future<bool> deleteItem(String id) async {
     try {
-      await db.collection('produtos').doc(id).delete();
-      return Future.value();
+      await db.collection(collection).doc(id).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<ItemModel?> getItem(String id) async {
+    try {
+      final snapshot = await db.collection(collection).doc(id).get();
+
+      return Future.value(ItemModel.fromMap(snapshot.data()!));
     } catch (e) {
       return Future.error(e);
     }
   }
 
   @override
-  Future<ProdutoModel> getProduto(String id) async {
-    try {
-      final snapshot = await db.collection('produtos').doc(id).get();
-      return Future.value(ProdutoModel.fromMap(snapshot.data()!));
-    } catch (e) {
-      return Future.error(e);
-    }
-  }
-
-  @override
-  Future<List<ProdutoModel>> getProdutos({
+  Future<List<ItemModel>> getItems({
     CategoriaModel? categoria,
     bool cache = true,
   }) async {
-    if (produtosCache.isNotEmpty && cache) {
-      return produtosCache;
+    if (itemsCache.isNotEmpty && cache) {
+      return itemsCache;
     }
 
     try {
-      var saida = <ProdutoModel>[];
+      var saida = <ItemModel>[];
 
-      final iterables = (await db.collection('produtos').orderBy('nome').get())
+      final iterables = (await db.collection(collection).orderBy('nome').get())
           .docs
           .map((e) => e.data())
           .toList();
-      final produtos = iterables.map(ProdutoModel.fromMap).toList();
+      final items = iterables.map(ItemModel.fromMap).toList();
 
       if (categoria != null) {
-        saida = produtos.where((e) {
+        saida = items.where((e) {
           return e.categoria.id == categoria.id;
         }).toList();
       } else {
-        saida = produtos;
+        saida = items;
       }
 
-      produtosCache = saida;
+      itemsCache = saida;
       return saida;
     } catch (e) {
       return Future.error(e);
@@ -110,10 +123,10 @@ class ProdutoFirebase implements IProdutoFirebase {
   }
 
   @override
-  Future<ProdutoModel> updateProduto(ProdutoModel produto) async {
+  Future<ItemModel> updateProduto(ItemModel item) async {
     try {
-      await db.collection('produtos').doc(produto.id).update(produto.toMap());
-      return Future.value(produto);
+      await db.collection(collection).doc(item.id).update(item.toMap());
+      return Future.value(item);
     } catch (e) {
       return Future.error(e);
     }

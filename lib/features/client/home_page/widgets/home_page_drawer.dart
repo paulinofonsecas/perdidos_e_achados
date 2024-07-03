@@ -27,7 +27,7 @@ class HomePageDrawer extends StatelessWidget {
               ),
             ),
             const ListTile(
-              title: Text('Protos salvos'),
+              title: Text('Items salvos'),
               leading: Icon(Icons.bookmark_outline),
             ),
             const Divider(),

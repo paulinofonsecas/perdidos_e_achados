@@ -42,12 +42,12 @@ class GetAllProdutosEmpty extends GestaoProdutosState {}
 
 class GetAllProdutosSuccess extends GestaoProdutosState {
   /// {@macro gestao_produtos_initial}
-  const GetAllProdutosSuccess(this.produtos) : super();
+  const GetAllProdutosSuccess(this.items) : super();
 
-  final List<ProdutoModel> produtos;
+  final List<ItemModel> items;
 
   @override
-  List<Object> get props => [produtos];
+  List<Object> get props => [items];
 }
 
 class GetAllProdutosError extends GestaoProdutosState {

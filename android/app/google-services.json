@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1086031755976",
-    "project_id": "gestao-restaurante",
-    "storage_bucket": "gestao-restaurante.appspot.com"
+    "project_number": "423898073300",
+    "project_id": "perdidos-e-achados-4163a",
+    "storage_bucket": "perdidos-e-achados-4163a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1086031755976:android:983bd4457b29ac279bc3fd",
+        "mobilesdk_app_id": "1:423898073300:android:9784479ba6269906465341",
         "android_client_info": {
           "package_name": "com.example.verygoodcore.gestao_restaurante"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD6OVZ54zJDbhczKcYtzQhROtHJgJHWqjA"
+          "current_key": "AIzaSyC5kP5Wx2Dj0eyQehmt0-qqAKk4EqCaHK8"
         }
       ],
       "services": {

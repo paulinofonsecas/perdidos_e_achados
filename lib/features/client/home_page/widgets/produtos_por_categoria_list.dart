@@ -36,6 +36,7 @@ class ProdutosPorCategoriaGrid extends StatelessWidget {
 
         if (state is ProdutoPorCategoriaHorizontalSuccess) {
           final produtos = state.produtoPorCategoria;
+
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 8,
@@ -47,7 +48,7 @@ class ProdutosPorCategoriaGrid extends StatelessWidget {
             itemCount: produtos.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => ProdutoPorCategoriaListItem(
-              produto: produtos[index],
+              item: produtos[index],
             ),
           );
         }

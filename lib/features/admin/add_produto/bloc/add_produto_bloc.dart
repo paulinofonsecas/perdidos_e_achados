@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_restaurante/dados/entidades/categoria_model.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/servicos/produto_firebase.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/categoria_field_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/descricao_input_cubit.dart';
@@ -32,27 +32,31 @@ class AddProdutoBloc extends Bloc<AddProdutoEvent, AddProdutoState> {
 
     final nome = _getNomeFieldValue(context);
     final descricao = _getDescricaoFieldValue(context);
-    final preco = _getPrecoFieldValue(context);
     final categoria = _getCategoriaFieldValue(context);
-    final disponibilidade = _getDisponibilidadeFieldValue(context);
     final imagens = _getImagensFieldValue(context);
+    final disponibilidade = _getDisponibilidadeFieldValue(context);
+    final preco = _getPrecoFieldValue(context);
 
-    final produto = ProdutoModel(
+    final item = ItemModel(
       id: const Uuid().v4(),
       nome: nome!,
       descricao: descricao!,
-      preco: preco!,
       categoria: categoria!,
-      disponibilidade: disponibilidade,
       imagemUrl: imagens!,
+      dataItemAchado: DateTime.now(),
+      dataItemPerdido: DateTime.now(),
+      criationDate: DateTime.now(),
+      encontrado: disponibilidade,
+      localEncontrado: 'Teste',
+      userQuerAchou: 'Teste',
     );
 
-    final pf = ProdutoFirebase.instance;
+    final pf = ItemFirebase.instance;
 
-    await pf.addProduto(produto).then((value) {
+    await pf.addItem(item).then((value) {
       emit(const AddNewProdutoSuccess());
     }).onError((error, stackTrace) {
-      emit(const AddNewProdutoError('Erro ao adicionar o novo livro'));
+      emit(const AddNewProdutoError('Erro ao adicionar o novo item'));
     });
   }
 
@@ -113,14 +117,14 @@ class AddProdutoBloc extends Bloc<AddProdutoEvent, AddProdutoState> {
   bool _getDisponibilidadeFieldValue(BuildContext context) {
     if (context.read<DisponibilidadeFieldCubit>().state
         is! DisponibilidadeFieldChanged) {
-      return true;
+      final disponibilidade = (context.read<DisponibilidadeFieldCubit>().state
+              as DisponibilidadeFieldChanged)
+          .disponibilidade;
+
+      return disponibilidade;
+    } else {
+      return false;
     }
-
-    final disponibilidade = (context.read<DisponibilidadeFieldCubit>().state
-            as DisponibilidadeFieldChanged)
-        .disponibilidade;
-
-    return disponibilidade;
   }
 
   List<String>? _getImagensFieldValue(BuildContext context) {

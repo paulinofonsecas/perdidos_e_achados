@@ -37,6 +37,7 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
         if (state is AuthenticationSignUpSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
+              backgroundColor: Colors.green,
               content: Text('Conta criada com sucesso!'),
             ),
           );

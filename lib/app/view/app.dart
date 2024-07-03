@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:gestao_restaurante/constants.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/gestao_produtos.dart';
 import 'package:gestao_restaurante/features/client/gestao_encomenda/view/gestao_encomenda_page.dart';
 import 'package:gestao_restaurante/features/client/home_page/view/home_page_page.dart';
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        colorScheme: ColorScheme.fromSeed(seedColor: MyColors.cyanColor),
         useMaterial3: true,
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -27,7 +28,7 @@ class App extends StatelessWidget {
           PointerDeviceKind.touch,
         },
       ),
-      home: const AuthenticationPage(),
+      home: const GestaoProdutosPage(),
       routes: {
         '/home-page': (context) => const HomePagePage(),
         '/gestao/encomendas': (context) => const GestaoEncomendaPage(),

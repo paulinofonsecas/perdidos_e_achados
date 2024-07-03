@@ -39,13 +39,17 @@ class AuthenticationBloc
     VerifyCurrentUser event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(AuthenticationLoading());
+    try {
+      emit(AuthenticationLoading());
 
-    final user = await _verifyCurrentUser();
+      final user = await _verifyCurrentUser();
 
-    if (user != null) {
-      emit(AuthenticationSignInSuccess(user: user));
-    } else {
+      if (user != null) {
+        emit(AuthenticationSuccess(user: user));
+      } else {
+        emit(AuthenticationInitial());
+      }
+    } catch (e) {
       emit(AuthenticationInitial());
     }
   }
@@ -58,15 +62,8 @@ class AuthenticationBloc
     final email = event.email;
     final password = event.password;
 
-    await _loginFirebase.login(email, password).then((user) async {
-      if (user != null) {
-        await _storeUser(user);
-        emit(AuthenticationSignInSuccess(user: user));
-        return;
-      } else {
-        emit(const AuthenticationSignInError('Erro ao realizar login'));
-      }
-    }).onError((e, stack) {
+    final user =
+        await _loginFirebase.login(email, password).onError((e, stack) {
       if (e is FirebaseAuthException) {
         if (e.code == 'invalid-credential') {
           emit(const AuthenticationSignInError('Credenciais inválidas'));
@@ -82,7 +79,16 @@ class AuthenticationBloc
 
         return;
       }
+      return null;
     });
+
+    if (user != null) {
+      // await _storeUser(user);
+      emit(AuthenticationSignInSuccess(user: user));
+      return;
+    } else {
+      emit(const AuthenticationSignInError('Erro ao realizar login'));
+    }
   }
 
   Future<void> _storeUser(LocalUser user) async {
@@ -115,9 +121,11 @@ class AuthenticationBloc
       if (user != null) {
         emit(AuthenticationSignUpSuccess(user: user));
       } else {
+        print('Stack 1');
         emit(const AuthenticationSignUpError('Erro ao criar a conta'));
       }
     }).onError((e, stack) {
+      print('Stack 2');
       emit(const AuthenticationSignUpError('Erro ao criar a conta'));
     });
   }

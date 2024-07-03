@@ -39,7 +39,7 @@ class HomePagePage extends StatelessWidget {
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Na Garagem'),
+          title: const Text('Perdidos e achados'),
           actions: [
             IconButton(
               onPressed: () {},

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
-import 'package:gestao_restaurante/dados/entidades/local_user.dart';
-import 'package:gestao_restaurante/dependencies.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/gestao_produtos.dart';
-import 'package:gestao_restaurante/features/client/home_page/view/home_page_page.dart';
 import 'package:gestao_restaurante/global/authentication/bloc/authentication_bloc.dart';
 import 'package:gestao_restaurante/global/authentication/widgets/login_form_widget.dart';
 import 'package:gestao_restaurante/global/global_logo_widget.dart';
@@ -30,20 +27,6 @@ class AuthenticationBody extends StatelessWidget {
               content: Text(state.message),
             ),
           );
-        }
-
-        if (state is AuthenticationSignInSuccess) {
-          if (getIt.isRegistered<LocalUser>()) {
-            getIt.unregister<LocalUser>();
-          }
-
-          getIt.registerSingleton<LocalUser>(state.user);
-
-          if (state.user.role == 'admin') {
-            Navigator.of(context).pushReplacement(GestaoProdutosPage.route());
-          } else {
-            Navigator.of(context).pushReplacement(HomePagePage.route());
-          }
         }
       },
       child: _buildAuthForms(context),

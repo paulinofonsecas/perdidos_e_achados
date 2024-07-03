@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/global/product_detail/view/product_detail_page.dart';
 import 'package:gestao_restaurante/global/widgets/global_image_network_widget.dart';
 
@@ -12,7 +12,7 @@ class BestSellerHorizontalListItem extends StatelessWidget {
     super.key,
   });
 
-  final ProdutoModel produto;
+  final ItemModel produto;
 
   String? _getImage(List<String> images) {
     if (images.isEmpty) return null;
@@ -36,7 +36,7 @@ class BestSellerHorizontalListItem extends StatelessWidget {
           padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.orange.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
           ),
           alignment: Alignment.bottomRight,
           child: Stack(
@@ -69,9 +69,9 @@ class BestSellerHorizontalListItem extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Text(
-                      '${produto.preco} Kz',
-                      style: const TextStyle(
-                        color: Colors.orange,
+                      produto.categoria.descricao,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
                         fontSize: 12,
                       ),
                     ),

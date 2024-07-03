@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/dados/servicos/produto_firebase.dart';
 
@@ -20,9 +21,7 @@ class GestaoProdutosBloc
   ) async {
     emit(const GetAllProdutosLoading());
 
-    await ProdutoFirebase.instance
-        .getProdutos(cache: event.inCache)
-        .then((value) {
+    await ItemFirebase.instance.getItems(cache: event.inCache).then((value) {
       if (value.isEmpty) {
         emit(GetAllProdutosEmpty());
         return;

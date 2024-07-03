@@ -29,8 +29,17 @@ class AuthenticationInitial extends AuthenticationState {}
 
 class AuthenticationLoading extends AuthenticationState {}
 
+
 class AuthenticationSignInSuccess extends AuthenticationState {
   const AuthenticationSignInSuccess({required this.user});
+  final LocalUser user;
+
+  @override
+  List<Object> get props => [user];
+}
+
+class AuthenticationSuccess extends AuthenticationState {
+  const AuthenticationSuccess({required this.user});
   final LocalUser user;
 
   @override

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gestao_restaurante/dados/entidades/local_user.dart';
 import 'package:gestao_restaurante/dados/entidades/local_user_credential.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ILoginFirebase {
   Future<LocalUser?> login(String email, String password);
@@ -60,8 +61,17 @@ class LoginFirebase implements ILoginFirebase {
     }
   }
 
+  Future<void> _removeUserFromLocalShare({String key = 'user'}) async {
+    final i = await SharedPreferences.getInstance();
+
+    if (i.containsKey(key)) {
+      await i.remove(key);
+    }
+  }
+
   @override
-  Future<void> logout() {
+  Future<void> logout() async {
+    await _removeUserFromLocalShare();
     return auth.signOut();
   }
 
