@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestao_restaurante/features/admin/gestao_produtos/cubit/fielter_cubit.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/gestao_produtos.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/produtos_listview_widget.dart';
 
@@ -15,7 +16,11 @@ class GestaoProdutosBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GestaoProdutosBloc, GestaoProdutosState>(
       bloc: context.read<GestaoProdutosBloc>()
-        ..add(const GetAllProdutosEvent()),
+        ..add(
+          GetAllProdutosEvent(
+            ordenacao: context.read<FilterCubit>().state.ordenacao,
+          ),
+        ),
       builder: (context, state) {
         if (state is GetAllProdutosLoading) {
           return const Center(child: CircularProgressIndicator());

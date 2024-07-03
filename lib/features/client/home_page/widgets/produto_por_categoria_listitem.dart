@@ -25,7 +25,7 @@ class ProdutoPorCategoriaListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushReplacement(ProductDetailPage.route(item));
+        Navigator.of(context).push(ProductDetailPage.route(item));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(

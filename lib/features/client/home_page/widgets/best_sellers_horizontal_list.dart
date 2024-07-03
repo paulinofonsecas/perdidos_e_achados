@@ -57,7 +57,7 @@ class BestSallersHorizontalList extends StatelessWidget {
                   itemCount: products.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => BestSellerHorizontalListItem(
-                    produto: products[index],
+                    item: products[index],
                   ),
                 ),
               );

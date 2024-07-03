@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/view/add_produto_page.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/bloc/bloc.dart';
+import 'package:gestao_restaurante/features/admin/gestao_produtos/cubit/fielter_cubit.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/gestao_produtos_body.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/gestao_produtos_drawer.dart';
-import 'package:gestao_restaurante/produtos_faker.dart';
 
 /// {@template gestao_produtos_page}
 /// A description for GestaoProdutosPage
@@ -23,19 +23,26 @@ class GestaoProdutosPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GestaoProdutosBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => GestaoProdutosBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FilterCubit(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Gestão de Items'),
           actions: [
             TextButton(
               onPressed: () async {
-                await populateProducts().then((e) {
-                  print('Populou');
-                });
+                // await populateProducts().then((e) {
+                //   print('Populou');
+                // });
               },
-              child: const Text('Popular'),
+              child: const Text('Atualizar'),
             ),
           ],
         ),
@@ -63,9 +70,12 @@ class GestaoProdutosView extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        context
-            .read<GestaoProdutosBloc>()
-            .add(const GetAllProdutosEvent(inCache: false));
+        context.read<GestaoProdutosBloc>().add(
+              GetAllProdutosEvent(
+                inCache: false,
+                ordenacao: context.read<FilterCubit>().state.ordenacao,
+              ),
+            );
       },
       child: const GestaoProdutosBody(),
     );

@@ -13,7 +13,12 @@ abstract class GestaoProdutosEvent extends Equatable {
 class GetAllProdutosEvent extends GestaoProdutosEvent {
   const GetAllProdutosEvent({
     this.inCache = true,
+    this.ordenacao,
   });
 
   final bool inCache;
+  final Ordenacao? ordenacao;
+
+  @override
+  List<Object> get props => [inCache];
 }

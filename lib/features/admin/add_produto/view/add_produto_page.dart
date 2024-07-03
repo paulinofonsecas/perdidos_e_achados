@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/bloc/bloc.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/categoria_field_cubit.dart';
+import 'package:gestao_restaurante/features/admin/add_produto/cubit/data_item_perdido_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/descricao_input_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/disponibilidade_field_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/imagem_field_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/nome_input_cubit.dart';
-import 'package:gestao_restaurante/features/admin/add_produto/cubit/preco_input_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/widgets/add_produto_body.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/gestao_produtos.dart';
 
@@ -35,7 +35,7 @@ class AddProdutoPage extends StatelessWidget {
           create: (context) => DescricaoInputCubit(),
         ),
         BlocProvider(
-          create: (context) => PrecoInputCubit(),
+          create: (context) => DataItemPerdidoCubit(),
         ),
         BlocProvider(
           create: (context) => CategoriaFieldCubit(),

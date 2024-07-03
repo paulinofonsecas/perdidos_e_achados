@@ -3,21 +3,21 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
-import 'package:gestao_restaurante/global/product_detail/view/product_detail_page.dart';
+import 'package:gestao_restaurante/global/item_details/view/item_details_page.dart';
 import 'package:gestao_restaurante/global/widgets/global_image_network_widget.dart';
 
 class BestSellerHorizontalListItem extends StatelessWidget {
   const BestSellerHorizontalListItem({
-    required this.produto,
+    required this.item,
     super.key,
   });
 
-  final ItemModel produto;
+  final ItemModel item;
 
   String? _getImage(List<String> images) {
     if (images.isEmpty) return null;
 
-    return produto.imagemUrl.length == 1
+    return item.imagemUrl.length == 1
         ? images.first
         : images[Random.secure().nextInt(images.length)];
   }
@@ -26,7 +26,7 @@ class BestSellerHorizontalListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, ProductDetailPage.route(produto));
+        Navigator.push(context, ItemDetailsPage.route(item));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
@@ -43,7 +43,7 @@ class BestSellerHorizontalListItem extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               GlobalImageNetworkWidget(
-                _getImage(produto.imagemUrl),
+                _getImage(item.imagemUrl),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +69,7 @@ class BestSellerHorizontalListItem extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Text(
-                      produto.categoria.descricao,
+                      item.categoria.descricao,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 12,

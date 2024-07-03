@@ -7,11 +7,11 @@ import 'package:gestao_restaurante/dados/entidades/categoria_model.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
 import 'package:gestao_restaurante/dados/servicos/produto_firebase.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/categoria_field_cubit.dart';
+import 'package:gestao_restaurante/features/admin/add_produto/cubit/data_item_perdido_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/descricao_input_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/disponibilidade_field_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/imagem_field_cubit.dart';
 import 'package:gestao_restaurante/features/admin/add_produto/cubit/nome_input_cubit.dart';
-import 'package:gestao_restaurante/features/admin/add_produto/cubit/preco_input_cubit.dart';
 import 'package:uuid/uuid.dart';
 
 part 'add_produto_event.dart';
@@ -33,9 +33,8 @@ class AddProdutoBloc extends Bloc<AddProdutoEvent, AddProdutoState> {
     final nome = _getNomeFieldValue(context);
     final descricao = _getDescricaoFieldValue(context);
     final categoria = _getCategoriaFieldValue(context);
+    final dataItemPerdido = _getDataItemPerdidoFieldValue(context);
     final imagens = _getImagensFieldValue(context);
-    final disponibilidade = _getDisponibilidadeFieldValue(context);
-    final preco = _getPrecoFieldValue(context);
 
     final item = ItemModel(
       id: const Uuid().v4(),
@@ -43,14 +42,12 @@ class AddProdutoBloc extends Bloc<AddProdutoEvent, AddProdutoState> {
       descricao: descricao!,
       categoria: categoria!,
       imagemUrl: imagens!,
-      dataItemAchado: DateTime.now(),
-      dataItemPerdido: DateTime.now(),
+      encontrado: false,
+      dataItemPerdido: dataItemPerdido,
       criationDate: DateTime.now(),
-      encontrado: disponibilidade,
-      localEncontrado: 'Teste',
-      userQuerAchou: 'Teste',
     );
 
+    print(item);
     final pf = ItemFirebase.instance;
 
     await pf.addItem(item).then((value) {
@@ -91,15 +88,17 @@ class AddProdutoBloc extends Bloc<AddProdutoEvent, AddProdutoState> {
     return descricao;
   }
 
-  double? _getPrecoFieldValue(BuildContext context) {
-    if (context.read<PrecoInputCubit>().state is! PrecoInputChanged) {
+  DateTime? _getDataItemPerdidoFieldValue(BuildContext context) {
+    if (context.read<DataItemPerdidoCubit>().state
+        is! DataItemPerdidoDateChanged) {
       return null;
     }
 
-    final preco =
-        (context.read<PrecoInputCubit>().state as PrecoInputChanged).preco;
+    final data = (context.read<DataItemPerdidoCubit>().state
+            as DataItemPerdidoDateChanged)
+        .date;
 
-    return preco;
+    return data;
   }
 
   CategoriaModel? _getCategoriaFieldValue(BuildContext context) {
@@ -114,7 +113,7 @@ class AddProdutoBloc extends Bloc<AddProdutoEvent, AddProdutoState> {
     return categoria;
   }
 
-  bool _getDisponibilidadeFieldValue(BuildContext context) {
+  bool _getEncontradoFieldValue(BuildContext context) {
     if (context.read<DisponibilidadeFieldCubit>().state
         is! DisponibilidadeFieldChanged) {
       final disponibilidade = (context.read<DisponibilidadeFieldCubit>().state

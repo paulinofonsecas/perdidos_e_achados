@@ -34,21 +34,21 @@ class ProductInfoWidget extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              Row(
-                children: [
-                  Text(
-                    'Disponivel',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge
-                        ?.copyWith(color: Colors.black),
-                  ),
-                  const Icon(
-                    Icons.check,
-                    color: Colors.greenAccent,
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text(
+              //       'Disponivel',
+              //       style: Theme.of(context)
+              //           .textTheme
+              //           .labelLarge
+              //           ?.copyWith(color: Colors.black),
+              //     ),
+              //     const Icon(
+              //       Icons.check,
+              //       color: Colors.greenAccent,
+              //     ),
+              //   ],
+              // ),
             ],
           ),
           const Gutter(),

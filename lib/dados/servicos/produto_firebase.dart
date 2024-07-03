@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gestao_restaurante/dados/entidades/categoria_model.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
+import 'package:gestao_restaurante/dados/models/ordenacao.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class IProdutoFirebase {
@@ -89,18 +90,42 @@ class ItemFirebase implements IProdutoFirebase {
     }
   }
 
+  void ordenarLista(List<ItemModel> list, Ordenacao ordenacao) {
+    list.sort((a, b) {
+      if (ordenacao == Ordenacao.alfabetica) {
+        return a.nome.compareTo(b.nome);
+      }
+
+      if (a.criationDate != null &&
+          b.criationDate != null &&
+          ordenacao == Ordenacao.dataAdicao) {
+        return a.criationDate!.compareTo(b.criationDate!);
+      }
+
+      if (a.dataItemPerdido != null &&
+          b.dataItemPerdido != null &&
+          ordenacao == Ordenacao.dataAdicao) {
+        return a.dataItemPerdido!.compareTo(b.dataItemPerdido!);
+      }
+
+      return a.nome.compareTo(b.nome);
+    });
+  }
+
   @override
   Future<List<ItemModel>> getItems({
     CategoriaModel? categoria,
     bool cache = true,
+    Ordenacao ordenacao = Ordenacao.alfabetica,
   }) async {
+    var saida = <ItemModel>[];
+
     if (itemsCache.isNotEmpty && cache) {
+      ordenarLista(itemsCache, ordenacao);
       return itemsCache;
     }
 
     try {
-      var saida = <ItemModel>[];
-
       final iterables = (await db.collection(collection).orderBy('nome').get())
           .docs
           .map((e) => e.data())
@@ -114,8 +139,9 @@ class ItemFirebase implements IProdutoFirebase {
       } else {
         saida = items;
       }
-
       itemsCache = saida;
+
+      ordenarLista(saida, ordenacao);
       return saida;
     } catch (e) {
       return Future.error(e);
