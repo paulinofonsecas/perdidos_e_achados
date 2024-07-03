@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_restaurante/constants.dart';
 import 'package:gestao_restaurante/dados/entidades/item_model.dart';
-import 'package:gestao_restaurante/dados/entidades/produto_model.dart';
 import 'package:gestao_restaurante/features/admin/gestao_produtos/widgets/produto_item_listview.dart';
 import 'package:gestao_restaurante/global/product_detail/view/product_detail_page.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProdutosListviewWidget extends StatefulWidget {
   const ProdutosListviewWidget({required this.items, super.key});
@@ -37,13 +38,13 @@ class _ProdutosListviewWidgetState extends State<ProdutosListviewWidget> {
         )
         .map(
           (item) => ProdutoItemListView(
-              item: item,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  ProductDetailPage.route(item),
-                );
-              },
+            item: item,
+            onTap: () {
+              Navigator.push(
+                context,
+                ProductDetailPage.route(item),
+              );
+            },
           ),
         )
         .toList();
@@ -73,21 +74,64 @@ class _SearchFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(kDefaultPadding),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          hintText: 'Pesquisar',
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                hintText: 'Pesquisar',
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: controller.text.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: controller.clear,
+                      )
+                    : null,
+              ),
+            ),
           ),
-          prefixIcon: const Icon(Icons.search),
-          suffixIcon: controller.text.isNotEmpty
-              ? IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: controller.clear,
-                )
-              : null,
-        ),
+          const GutterTiny(),
+          IconButton(
+            onPressed: () {
+              showMaterialModalBottomSheet(
+                context: context,
+                builder: (context) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(kDefaultPadding),
+                      child: Align(
+                        child: Text(
+                          'Ordenar por',
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      title: const Text('Data de adição'),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      title: const Text('Data de perdido'),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(Icons.sort_by_alpha),
+          ),
+        ],
       ),
     );
   }
