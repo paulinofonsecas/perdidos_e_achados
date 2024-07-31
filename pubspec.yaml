@@ -29,7 +29,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   searchable_listview: ^2.14.0
   uuid: ^4.4.0
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.3.0
   mockito: ^5.4.4
   firebase_storage_mocks: ^0.7.0
   fake_cloud_firestore: ^3.0.1
